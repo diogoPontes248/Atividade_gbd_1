@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1754651730 source:c:\users\hb\desktop\aula05b-lab-indexacao-b-plus-tree-codigo-inicial\btree.cpp
+	<sys/types.h>
+	<sys/stat.h>
+	"btree.h"
+
+1770851469 c:\users\hb\desktop\aula05b-lab-indexacao-b-plus-tree-codigo-inicial\btree.h
+	<stdio.h>
+
+1770851011 source:c:\users\hb\desktop\aula05b-lab-indexacao-b-plus-tree-codigo-inicial\main.cpp
+	<stdlib.h>
+	<time.h>
+	"btree.h"
+
