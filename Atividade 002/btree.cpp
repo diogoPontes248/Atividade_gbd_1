@@ -113,7 +113,9 @@ int btree::buscaChave(int chave) {
     }
     for ( int i = 0; i < C -> numeroElementos; i++ ) {                // Se para algum elemento de C, Ki == v, portanto retorna Pi
         if ( C -> chaves[i] == chave) {
-            return C -> valores[i];
+            int valor = C -> valores[i];
+            delete C;                                                 // Libera a memória antes de retornar
+            return valor;
         }
     }
     delete C;                                                          // Libera a memória do nó folha
