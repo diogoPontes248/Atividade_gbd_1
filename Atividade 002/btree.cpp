@@ -82,8 +82,42 @@ void btree::removeChave(int chave) {
 }
 
 int btree::buscaChave(int chave) {
-    // se encontrar chave, retornar valor, caso contrário, retornar -1
-    return -1;
+    if ( cabecalhoArvore.numeroElementos == 0 || cabecalhoArvore.paginaRaiz == -1 ) return -1; // Trativa para o caso da árvore for vazia
+
+    pagina * C = lePagina(cabecalhoArvore.paginaRaiz);               // C = nó raiz
+    int alturaAtualArvore = 1;
+
+    while ( alturaAtualArvore < cabecalhoArvore.alturaArvore ) {     // Enquanto C não for um nó folha
+        int i = 0;
+
+        while (i < C -> numeroElementos && chave > C -> chaves[i]) { // i = menor número tal que v <= Ki
+            i++;
+        }
+
+        int proximaPagina;
+
+        if (i == C -> numeroElementos) {
+            proximaPagina = C -> valores[C -> numeroElementos];       // Próxima página é definida como o último ponteiro não nulo no nó
+        }
+        else if ( chave == C -> chaves[i]) {
+            proximaPagina = C -> valores [i+1];                       // Próxima página é definida como o registro seguinte
+        }else {
+            proximaPagina = C -> valores [i];                         // Próxima página é definida como a posição correspondente
+        }
+
+        pagina * aux = lePagina(proximaPagina);
+        delete C;                                                     // Libera a memória da página atual
+        C = aux;
+
+        alturaAtualArvore++;
+    }
+    for ( int i = 0; i < C -> numeroElementos; i++ ) {                // Se para algum elemento de C, Ki == v, portanto retorna Pi
+        if ( C -> chaves[i] == chave) {
+            return C -> valores[i];
+        }
+    }
+    delete C;                                                          // Libera a memória do nó folha
+    return -1;                                                         // Não existe um registro com o valor de chave forneceido
 }
 
 #endif	/* _BTREE_CPP */
